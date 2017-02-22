@@ -3,15 +3,30 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: Constraint propagation is used by reducing the number of possibilities in the
-space of possible solutions: If a twin is found, both digits are in one of the
-two boxes (== constraint). Thus, they are not part of the possible solutions
-for the remaining cells (propagation).
+A: A naked twin is given if a unit, e.g. row, square, contains two boxes having
+the same two digits as candidates, as this implies that these two digits must be
+in these boxes, thus that they are no candidates for the remaining boxes.
+Obviously this can be generalized to N-tuples (N \in 1:8). We already implemented
+the N = 1 generalizations, as so called elimination technique. One could Furthermore
+generalize to overlapping digits, e.g., {A1: 12, A2:23, A3:13, ...}. However, this
+could be difficult to check with acceptable computer speed.
+
+A naked twin, as elaborated above, is an additional technique to detect implications
+of the simple 1:9 uniqueness in a unit constraint. Thus, we can solve a Sudoku
+faster, as we have an additional constraint detection method.
 
 # Question 2 (Diagonal Sudoku)
-Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: As before I included the two diagonals as additional peers. Thus, we use the
-*eliminate*, *only choice*.
+Q: How do we use constraint propagation to solve the diagonal Sudoku problem?  
+A: In Sudoku the constraints are defined on units of size 9, e.g. rows, squares.
+The constraint is the uniqueness of the digits 1:9 and additionally that all boxes
+are filled. Thus, adding the diagonal to the units reduces the number of possible
+Sudokus and should thus increase the speed at which a Sudoku can be solved
+(as we have more constraints).
+
+To answer the question directly, we solve the Sudoku by reducing the number of
+candidates in each box. This is done by extracting information from the peer boxes'
+candidates as we know that each digit is unique in its peers (and thus not a candidates
+in another peer box.)
 
 ### Install
 
